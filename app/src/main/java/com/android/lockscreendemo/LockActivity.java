@@ -27,67 +27,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Callable;
 
-public class LockActivity extends AppCompatActivity {
+public class LockActivity extends AppCompatActivity { //锁屏activity,Window.addFlag()设置锁屏，和时间更新
     public static LockActivity instance;
     private Handler mhandler = new Handler();
     private boolean run = true;
     private TextView mView;
-    private TextView dataV;
-    private SilderView silderView;
+    private TextView dateView;
     public final static String tag = "lock1";
 
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        Log.d(tag,""+ev.getDeviceId());
-//        return true;
-//    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        Log.d(tag,event.toString());
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-                actionMove(event);
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-        }
-        return true;
-
-    }
-
-
-
-
-
-
-    public void actionMove(MotionEvent event){
-        if(silderView!=null) {
-            int Y = (int)event.getY();
-            int rawY = (int)event.getRawY();
-            int[] location = new int[2];
-            silderView.getLocationInWindow(location);
-            int windowY = location[1];
-            silderView.getLocationOnScreen(location);
-            int screenY = location[1];
-            Log.d(tag,Y+"-"+rawY+"-"+windowY+"-"+screenY);
-            silderView.layout((int)(716-150), Y-200,716+150,Y+200);//+300+(int)(0.18*Y)
-            if (event.getY()<1277){
-                //this.onDestroy();
-            }
-        }
-    }
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.return_layout);
-        instance = this;
+        instance = this; //传入 Layout 执行finish()
         //Log.e("lock1", "onCreate: ScreenOnTestActivity");
         final Window win = getWindow();
         //四个标志位分别是锁屏状态下显示，解锁，保持屏幕长亮，打开屏幕
@@ -97,9 +51,8 @@ public class LockActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         mView = (TextView) findViewById(R.id.time);
-        dataV = (TextView) findViewById(R.id.date);
-        silderView = (SilderView) findViewById(R.id.idog2);
-        ImageButton imageButton = (ImageButton)findViewById(R.id.look);
+        dateView = (TextView) findViewById(R.id.date);
+        ImageButton imageButton = (ImageButton) findViewById(R.id.look);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,42 +61,13 @@ public class LockActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Log.d(tag, mView.toString());
         updateTime();
-
     }
-
-
 
     public void updateTime() {
-        Log.d("lock1", "11");
         mhandler.postDelayed(task, 0);
-
     }
 
-
-    public void demo(){
-         Handler handler1 = new Handler(Looper.myLooper()){
-             public void handleMessage(Message msg){
-                 Log.d(tag,""+msg.what);
-             }
-        };
-    }
-
-    public void onclick(){
-
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message message = new Message();
-                message.what = 1;
-                mhandler.sendMessage(message);
-            }
-        });
-
-    }
 
     public final Runnable task = new Runnable() {
         @Override
@@ -153,16 +77,13 @@ public class LockActivity extends AppCompatActivity {
                 String str = sdf.format(new Date());
                 String[] strings = str.split("  ");
                 if (mView != null) {
-                    ((TextView)mView).setText(strings[1]);
-                    dataV.setText(strings[0]);
-
+                    ((TextView) mView).setText(strings[1]);
+                    dateView.setText(strings[0]);
                 }
                 mhandler.postDelayed(this, 1000);
                 //Log.d(tag,"线程："+android.os.Process.myTid());
             }
         }
     };
-
-
 
 }

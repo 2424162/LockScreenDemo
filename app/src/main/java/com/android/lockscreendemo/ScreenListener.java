@@ -7,8 +7,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 
-public class ScreenListener {
-
+public class ScreenListener {//亮屏广播启动锁屏activity
 
     private Context context;
     private ScreenListenerReceiver mScreenReceiver;
@@ -19,29 +18,23 @@ public class ScreenListener {
 
     }
 
-
     public class ScreenListenerReceiver extends BroadcastReceiver {
         private String action = null;
 
         @Override
         public void onReceive(Context context, Intent intent) {
             action = intent.getAction();
-            Log.d("lock1", action.toString());
             if (Intent.ACTION_SCREEN_ON.equals(action)) {        //开屏操作
                 onScreenOn();
             }
-
         }
-
     }
 
     private void onScreenOn() {
         Intent intent = new Intent(context, LockActivity.class);
         Log.d("lock1",intent.toString());
         context.startActivity(intent);
-
     }
-
 
     public void startScreenBroadcastReceiver() {
         IntentFilter filter = new IntentFilter();
@@ -49,8 +42,6 @@ public class ScreenListener {
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_USER_PRESENT);
         context.registerReceiver(mScreenReceiver, filter);
-
-
     }
 
 }
