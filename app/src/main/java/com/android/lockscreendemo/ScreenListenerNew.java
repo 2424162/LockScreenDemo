@@ -26,7 +26,6 @@ public class ScreenListenerNew {
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_USER_PRESENT);
         mContext.registerReceiver(mScreenReceiver, filter);
-
     }
 
     public class ScreenListenerBroadNew extends BroadcastReceiver{

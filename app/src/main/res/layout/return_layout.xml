@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+<com.android.lockscreendemo.ReturnLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/time"
@@ -35,7 +32,6 @@
         android:layout_marginTop="80dp"
         />
     <ImageView
-        android:id="@+id/idog2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/idog"
@@ -47,15 +43,17 @@
 
     </ImageView>
 
+
     <com.android.lockscreendemo.ColorTextView
         android:id="@+id/unlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:text="滑动解锁"
-
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
+
+        android:layout_alignParentBottom ="true"
         android:paddingBottom="20dp"
         android:textSize="30sp"/>
 
@@ -78,4 +76,6 @@
 
 
 
-</RelativeLayout>
+
+
+</com.android.lockscreendemo.ReturnLayout>

@@ -40,29 +40,17 @@ public class SilderView extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        Log.d(tag, event.toString());
-//        ViewDragHelper viewDragHelper = new ViewDragHelper(getContext(), this, new ViewDragHelper.Callback() {
-//            @Override
-//            public boolean tryCaptureView(@NonNull View child, int pointerId) {
-//                return false;
-//            }
-//
-//
-//        });
-//        viewDragHelper.processTouchEvent(event);
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                actionDown(event);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                actionMove(event);
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-        }
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Log.d(tag,event.toString());
+        return false;
+    }
 
-        return super.onTouchEvent(event);
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+
+
+        return false;
     }
 
     private void actionDown(MotionEvent event) {
@@ -75,7 +63,7 @@ public class SilderView extends View {
     private void actionMove(MotionEvent event) {
         Log.d(tag, "Y相对位置" + event.getRawY());
         int s = (int) event.getY();
-        this.offsetTopAndBottom(s);0
+        this.offsetTopAndBottom(s);
     }
 
     @Override
